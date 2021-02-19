@@ -19,10 +19,10 @@ import com.vaadin.flow.component.tabs.Tabs;
 import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.server.PWA;
 import com.vaadin.flow.theme.Theme;
-import org.hbrs.se2.hausarbeit.carlookltd.views.main.MainView;
 import org.hbrs.se2.hausarbeit.carlookltd.views.eingestellteautos.EingestellteAutosView;
 import org.hbrs.se2.hausarbeit.carlookltd.views.autoeintragen.AutoeintragenView;
 import org.hbrs.se2.hausarbeit.carlookltd.views.logout.LogoutView;
+
 
 /**
  * The main view is a top-level placeholder for other views.
