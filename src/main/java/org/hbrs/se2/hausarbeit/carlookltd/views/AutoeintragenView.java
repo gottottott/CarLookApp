@@ -1,14 +1,12 @@
-package org.hbrs.se2.hausarbeit.carlookltd.views.autoeintragen;
+package org.hbrs.se2.hausarbeit.carlookltd.views;
 
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
-import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-import org.hbrs.se2.hausarbeit.carlookltd.views.main.MainView;
 
 @Route(value = "AutoEintragen", layout = MainView.class)
 @PageTitle("Auto eintragen")

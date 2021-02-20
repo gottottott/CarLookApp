@@ -1,4 +1,4 @@
-package org.hbrs.se2.hausarbeit.carlookltd.views.main;
+package org.hbrs.se2.hausarbeit.carlookltd.views;
 
 import java.util.Optional;
 
@@ -18,10 +18,7 @@ import com.vaadin.flow.component.tabs.TabVariant;
 import com.vaadin.flow.component.tabs.Tabs;
 import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.server.PWA;
-import com.vaadin.flow.theme.Theme;
-import org.hbrs.se2.hausarbeit.carlookltd.views.eingestellteautos.EingestellteAutosView;
-import org.hbrs.se2.hausarbeit.carlookltd.views.autoeintragen.AutoeintragenView;
-import org.hbrs.se2.hausarbeit.carlookltd.views.logout.LogoutView;
+import org.hbrs.se2.hausarbeit.carlookltd.views.*;
 
 
 /**

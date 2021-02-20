@@ -3,11 +3,12 @@ package org.hbrs.se2.hausarbeit.carlookltd.process.control;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.server.VaadinSession;
 import org.hbrs.se2.hausarbeit.carlookltd.model.objects.dto.User;
+import org.hbrs.se2.hausarbeit.carlookltd.process.control.exceptions.DatabaseException;
 import org.hbrs.se2.hausarbeit.carlookltd.process.control.exceptions.NoSuchUserOrPassword;
 import org.hbrs.se2.hausarbeit.carlookltd.services.db.JDBCConnection;
 import org.hbrs.se2.hausarbeit.carlookltd.services.util.Roles;
-import org.hbrs.se2.hausarbeit.carlookltd.views.eingestellteautos.EingestellteAutosView;
-import org.hbrs.se2.hausarbeit.carlookltd.views.main.MainView;
+import org.hbrs.se2.hausarbeit.carlookltd.views.*;
+
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,7 +17,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class LoginControl {
-    public static void checkAuthenthication(String mail, String passwort) throws NoSuchUserOrPassword {
+    public static void checkAuthenthication(String mail, String passwort) throws NoSuchUserOrPassword, DatabaseException {
         ResultSet set = null;
 
         try {
@@ -27,6 +28,7 @@ public class LoginControl {
                     "AND carlook.user.user_passwort = \'" + passwort + "\'");
         } catch (SQLException ex) {
             Logger.getLogger(LoginControl.class.getName()).log(Level.SEVERE, null, ex);
+            throw new DatabaseException("Fehler im SQL-Befehl! Bitte den Entwickler informieren! ");
         }
 
         User user = null;
@@ -48,5 +50,13 @@ public class LoginControl {
         VaadinSession session = UI.getCurrent().getSession();
         session.setAttribute(Roles.CURRENT_USER, user);
         UI.getCurrent().navigate(EingestellteAutosView.class);
+    }
+    public static void logOutUser() {
+        UI.getCurrent().getPage().setLocation("/login");
+        UI.getCurrent().getSession().close();
+    }
+    public static void createUser(User user) {
+
+
     }
 }
