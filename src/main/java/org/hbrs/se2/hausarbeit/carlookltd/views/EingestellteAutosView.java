@@ -2,6 +2,7 @@ package org.hbrs.se2.hausarbeit.carlookltd.views;
 
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
@@ -23,10 +24,14 @@ public class EingestellteAutosView extends HorizontalLayout {
 
     public EingestellteAutosView() {
         User user = (User) VaadinSession.getCurrent().getAttribute(Roles.CURRENT_USER);
-        if( user == null) {
+
+
+        if( (user == null || (!user.getIstVertriebler())) ) {
             LoginControl.logOutUser();
         }
+        else {
             setup();
+        }
     }
     public void setup() {
         addClassName("eingestellte-autos-view");

@@ -38,7 +38,7 @@ public class LoginControl {
                 user.setVorname(set.getString(2));
                 user.setNachname(set.getString(3));
                 user.setMail(set.getString(4));
-                user.setIstVertriebler(set.getBoolean(5));
+                user.setIstVertriebler(set.getBoolean(6));
             } else {
                 throw new NoSuchUserOrPassword();
             }
