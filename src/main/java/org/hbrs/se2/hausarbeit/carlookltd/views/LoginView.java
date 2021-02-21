@@ -16,7 +16,7 @@ import org.hbrs.se2.hausarbeit.carlookltd.process.control.exceptions.NoSuchUserO
 
 @Route(value = "login", layout = MainView.class)
 @PageTitle("Login")
-@CssImport("./styles/views/logout/logout-view.css")
+@CssImport("./styles/views/view.css")
 
 public class LoginView extends VerticalLayout {
     public LoginView() {

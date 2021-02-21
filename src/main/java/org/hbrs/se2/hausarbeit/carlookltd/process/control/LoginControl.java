@@ -30,14 +30,14 @@ public class LoginControl {
             Logger.getLogger(LoginControl.class.getName()).log(Level.SEVERE, null, ex);
             throw new DatabaseException("Fehler im SQL-Befehl! Bitte den Entwickler informieren! ");
         }
-
         User user = null;
         try {
             if (set.next()) {
                 user = new User();
-                user.setMail(set.getString(1));
-                user.setVorname(set.getString(3));
-                user.setNachname(set.getString(4));
+                user.setId(set.getInt(1));
+                user.setVorname(set.getString(2));
+                user.setNachname(set.getString(3));
+                user.setMail(set.getString(4));
                 user.setIstVertriebler(set.getBoolean(5));
             } else {
                 throw new NoSuchUserOrPassword();

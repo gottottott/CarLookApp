@@ -18,7 +18,6 @@ import com.vaadin.flow.component.tabs.TabVariant;
 import com.vaadin.flow.component.tabs.Tabs;
 import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.server.PWA;
-import org.hbrs.se2.hausarbeit.carlookltd.views.*;
 
 
 /**
@@ -75,7 +74,7 @@ public class MainView extends AppLayout {
 
     private static Tab[] getAvailableTabs() {
         return new Tab[]{createTab("Eingestellte Autos", EingestellteAutosView.class),
-                createTab("Auto eintragen", AutoeintragenView.class), createTab("Logout", LogoutView.class)};
+                createTab("Auto eintragen", AutoEintragenView.class), createTab("Logout", LogoutView.class)};
     }
 
     private static Tab createTab(String text, Class<? extends Component> navigationTarget) {

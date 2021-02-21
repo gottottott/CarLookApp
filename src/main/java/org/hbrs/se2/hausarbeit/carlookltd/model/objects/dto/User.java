@@ -1,6 +1,9 @@
 package org.hbrs.se2.hausarbeit.carlookltd.model.objects.dto;
 
 public class User {
+
+
+    private int id;
     private String vorname;
     private String nachname;
     private String mail;
@@ -42,6 +45,12 @@ public class User {
     }
     public void setIstVertriebler(boolean istVertriebler) {
         this.istVertriebler = istVertriebler;
+    }
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
     }
 
 

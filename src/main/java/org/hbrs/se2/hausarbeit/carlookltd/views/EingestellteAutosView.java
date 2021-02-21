@@ -15,7 +15,7 @@ import com.vaadin.flow.router.RouteAlias;
 
 @Route(value = "AutoListe", layout = MainView.class)
 @PageTitle("Eingestellte Autos")
-@CssImport("./styles/views/eingestellteautos/eingestellte-autos-view.css")
+@CssImport("./styles/views/view.css")
 @RouteAlias(value = "", layout = MainView.class)
 public class EingestellteAutosView extends HorizontalLayout {
 
@@ -30,12 +30,12 @@ public class EingestellteAutosView extends HorizontalLayout {
     }
     public void setup() {
         addClassName("eingestellte-autos-view");
-        grid.setItems(AutoSearchControl.getInstance().getAutobyVertriebler(2));
+        grid.setItems(AutoSearchControl.getInstance().getAutos());
         add(grid);
         configureGrid();
     }
     public void configureGrid() {
-        grid.setColumns("id","marke","baujahr","beschreibung");
+        grid.setColumns("id", "marke","baujahr","beschreibung","vertrieblerId");
         grid.getColumns().forEach(col-> col.setAutoWidth(true));
        }
 }

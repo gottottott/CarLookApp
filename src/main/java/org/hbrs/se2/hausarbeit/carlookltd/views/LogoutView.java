@@ -10,7 +10,7 @@ import org.hbrs.se2.hausarbeit.carlookltd.process.control.LoginControl;
 
 @Route(value = "logout", layout = MainView.class)
 @PageTitle("Logout")
-@CssImport("./styles/views/logout/logout-view.css")
+@CssImport("./styles/views/view.css")
 public class LogoutView extends HorizontalLayout {
 
     private TextField name;

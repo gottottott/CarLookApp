@@ -20,7 +20,7 @@ import org.hbrs.se2.hausarbeit.carlookltd.process.control.exceptions.NoSuchUserO
 
 @Route(value = "registrieren", layout = MainView.class)
 @PageTitle("Registrieren")
-@CssImport("./styles/views/logout/logout-view.css")
+@CssImport("./styles/views/view.css")
 public class RegistrierenView extends VerticalLayout {
     public RegistrierenView() {
         addClassName("registrieren-view");
@@ -32,7 +32,7 @@ public class RegistrierenView extends VerticalLayout {
         final PasswordField passwordField = new PasswordField("Passwort");
         final Button registerButton = new Button("Registrieren");
 
-        add(vNameField, nNameField, mailField, passwordField, registerButton);
+        add(welcomeLabel, vNameField, nNameField, mailField, passwordField, registerButton);
         setAlignItems(FlexComponent.Alignment.CENTER);
 
         registerButton.addClickListener(e -> {

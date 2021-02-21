@@ -1,11 +1,11 @@
 package org.hbrs.se2.hausarbeit.carlookltd.model.objects.dto;
 
 public class Auto implements java.io.Serializable {
-    private int id;
-    private String marke;
-    private int baujahr;
-    private String beschreibung;
-    private int vertrieblerId;
+    private int id = 0;
+    private String marke = "";
+    private int baujahr = 0;
+    private String beschreibung = "";
+   private int vertrieblerId = 0;
 
 
 
@@ -16,8 +16,18 @@ public class Auto implements java.io.Serializable {
         this.beschreibung = beschreibung;
         this.vertrieblerId = vertrieblerId;
     }
+    public Auto(String marke, int baujahr, String beschreibung) {
+        this.marke = marke;
+        this.baujahr = baujahr;
+        this.beschreibung = beschreibung;
+    }
+
+    public Auto() {
+
+    }
+
     // Getter und Setter
-    public int getId() {
+   public int getId() {
         return id;
     }
     public String getMarke() {
@@ -45,7 +55,7 @@ public class Auto implements java.io.Serializable {
         this.vertrieblerId = vertrieblerId;
     }
 
-
-
-
+    public void setId(int id) {
+        this.id = id;
+    }
 }
