@@ -18,6 +18,10 @@ import com.vaadin.flow.component.tabs.TabVariant;
 import com.vaadin.flow.component.tabs.Tabs;
 import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.server.PWA;
+import com.vaadin.flow.server.VaadinSession;
+import org.hbrs.se2.hausarbeit.carlookltd.model.objects.dto.User;
+import org.hbrs.se2.hausarbeit.carlookltd.process.control.LoginControl;
+import org.hbrs.se2.hausarbeit.carlookltd.services.util.Roles;
 
 
 /**
@@ -28,7 +32,7 @@ import com.vaadin.flow.server.PWA;
 @PWA(name = "Car Look Ltd.", shortName = "Car Look Ltd.", enableInstallPrompt = false)
 @JsModule("./styles/shared-styles.js")
 public class MainView extends AppLayout {
-
+    User user = (User) VaadinSession.getCurrent().getAttribute(Roles.CURRENT_USER);
     private final Tabs menu;
 
     public MainView() {
@@ -73,7 +77,7 @@ public class MainView extends AppLayout {
     }
 
     private static Tab[] getAvailableTabs() {
-        return new Tab[]{createTab("Eingestellte Autos", EingestellteAutosView.class),
+        return new Tab[]{createTab("Autos", EingestellteAutosView.class),
                 createTab("Auto eintragen", AutoEintragenView.class), createTab("Logout", LogoutView.class)};
     }
 

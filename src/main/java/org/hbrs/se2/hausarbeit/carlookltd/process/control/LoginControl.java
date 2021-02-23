@@ -2,6 +2,7 @@ package org.hbrs.se2.hausarbeit.carlookltd.process.control;
 
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.server.VaadinSession;
+import org.hbrs.se2.hausarbeit.carlookltd.model.dao.UserDAO;
 import org.hbrs.se2.hausarbeit.carlookltd.model.objects.dto.User;
 import org.hbrs.se2.hausarbeit.carlookltd.process.control.exceptions.DatabaseException;
 import org.hbrs.se2.hausarbeit.carlookltd.process.control.exceptions.NoSuchUserOrPassword;
@@ -17,6 +18,15 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class LoginControl {
+    private static LoginControl loginControl;
+    private LoginControl() {
+    }
+    public static LoginControl getInstance() {
+        if(loginControl == null) {
+            loginControl = new LoginControl();
+        }
+        return loginControl;
+    }
     public static void checkAuthenthication(String mail, String passwort) throws NoSuchUserOrPassword, DatabaseException {
         ResultSet set = null;
 
@@ -55,8 +65,8 @@ public class LoginControl {
         UI.getCurrent().getPage().setLocation("/login");
         UI.getCurrent().getSession().close();
     }
-    public static void createUser(User user) {
-
+    public static void addUser(User user) {
+        UserDAO.getInstance().addUser(user);
 
     }
 }

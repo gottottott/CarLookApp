@@ -37,7 +37,7 @@ public class RegistrierenView extends VerticalLayout {
 
         registerButton.addClickListener(e -> {
             User user = new User(vNameField.getValue(),nNameField.getValue(),mailField.getValue(),passwordField.getValue());
-            boolean result = UserDAO.getInstance().addUser(user);
+            LoginControl.getInstance().addUser(user);
           //  try {
                 // DB eintrag
             /*} catch (NoSuchUserOrPassword noSuchUserOrPassword) {

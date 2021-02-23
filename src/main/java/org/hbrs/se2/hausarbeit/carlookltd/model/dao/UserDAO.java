@@ -16,7 +16,7 @@ public class UserDAO extends AbstractDAO {
         }
         return dao;
     }
-    public boolean addUser(User user) {
+    public void addUser(User user) {
         String sql = ("insert into carlook.user values (default, ?, ?, ?, ?, ?);");
         PreparedStatement statement = this.getPreparedStatement(sql);
 
@@ -33,7 +33,6 @@ public class UserDAO extends AbstractDAO {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        return true;
     }
     public boolean checkIsVertriebler(String param) {
         boolean isVertriebler = false;
