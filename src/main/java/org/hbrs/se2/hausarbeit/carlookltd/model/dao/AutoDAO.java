@@ -1,5 +1,6 @@
 package org.hbrs.se2.hausarbeit.carlookltd.model.dao;
 
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.server.VaadinSession;
 import org.hbrs.se2.hausarbeit.carlookltd.model.objects.dto.Auto;
 import org.hbrs.se2.hausarbeit.carlookltd.model.objects.dto.User;
@@ -26,13 +27,19 @@ public class AutoDAO extends AbstractDAO {
         }
         return dao;
     }
-    public List<Auto> getAutos() {
+    // Autos anhand einer Marke ausgeben
+    public List<Auto> getAutosByMarke(String marke) {
+        String sql;
+        // Leeres Suchfeld gibt alle Autos aus
+        if(marke == "") {
+            sql = "SELECT * FROM carlook.auto;";
+        } else {
+            sql = "SELECT * FROM carlook.auto WHERE carlook.auto.auto_marke = \'" + marke + "\';";
+        }
         Statement statement = this.getStatement();
         ResultSet rs = null;
         try {
-            rs = statement.executeQuery(
-                "SELECT *" +
-                    "FROM carlook.auto ");
+            rs = statement.executeQuery(sql);
             } catch (SQLException ex){
         }
         if ( rs == null) return null;
@@ -54,6 +61,7 @@ public class AutoDAO extends AbstractDAO {
         }
         return autoListe;
     }
+    // Autos von einem Vertriebler ausgeben
     public List<Auto> getAutosByVertriebler(int vertriebler) {
         Statement statement = this.getStatement();
         ResultSet rs = null;
@@ -63,7 +71,6 @@ public class AutoDAO extends AbstractDAO {
                             "FROM carlook.auto " +
                             "WHERE carlook.auto.user_id =  \'" + vertriebler + "\';"
             );
-
         } catch (SQLException ex){
         }
         if ( rs == null) return null;
@@ -85,31 +92,59 @@ public class AutoDAO extends AbstractDAO {
         }
         return autoListe;
     }
-
-    public boolean addAuto(Auto auto) {
+    // fügt ein Auto hinzu
+    public boolean addAuto(Auto auto) throws DatabaseException {
         User user = (User) VaadinSession.getCurrent().getAttribute(Roles.CURRENT_USER);
         String sql = ("insert into carlook.auto values (default, ?, ?, ?, ?);");
         PreparedStatement statement = this.getPreparedStatement(sql);
-
         try {
-            statement.setString(1, auto.getMarke());
-            statement.setInt(2, auto.getBaujahr());
-            statement.setString(3, auto.getBeschreibung());
-            statement.setInt(4, user.getId());
-            statement.executeUpdate();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            if (autoVorhanden(auto)) {
+                throw new DatabaseException("Fehler Datensatz bereits vorhanden");
+            } else {
+                statement.setString(1, auto.getMarke());
+                statement.setInt(2, auto.getBaujahr());
+                statement.setString(3, auto.getBeschreibung());
+                statement.setInt(4, user.getId());
+                statement.executeUpdate();
+            }
+        }catch (SQLException ex) {
+             ex.printStackTrace();
         }
         return true;
     }
+   public boolean autoVorhanden(Auto auto) {
+        return false;
+   }
+        /*
+        Statement statement1 = this.getStatement();
+        ResultSet rs = null;
+        String i = "asdf";
+        try {
+            rs = statement1.executeQuery("SELECT COUNT * " +
+                    "FROM carlook.user "
+                 //   "WHERE carlook.auto.auto_marke = \'" + i + "\';"); //auto.getMarke() + "\' " +
+            );
+           System.out.println(rs.getInt("total"));
+            if(rs.getInt(1) == 0) {
+                return false;
+            }
+        } catch (SQLException ex) {
+
+        }
+        //  "AND carlook.auto.auto_baujahr = \'" + auto.getBaujahr() + "\'  +" +
+        //  "AND carlook.auto.auto_beschreibung = \'" + auto.getBeschreibung() + "\'");
+        return true;
+    }
+
+ */
+    // Auto anhand der Id aus Datenbank entfernen
     public void deleteCarByID(int id) {
         Statement statement = this.getStatement();
         try {
             statement.execute("DELETE FROM carlook.auto WHERE carlook.auto.auto_id = \'" + id + "\';");
+            statement.execute("DELETE FROM carlook.reservierung WHERE carlook.reservierung.auto_id = \'" + id + "\';");
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-        } {
-
         }
     }
 }

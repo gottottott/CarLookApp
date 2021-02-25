@@ -1,5 +1,6 @@
 package org.hbrs.se2.hausarbeit.carlookltd.views;
 
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.html.H1;
@@ -14,7 +15,7 @@ import org.hbrs.se2.hausarbeit.carlookltd.process.control.LoginControl;
 import org.hbrs.se2.hausarbeit.carlookltd.process.control.exceptions.DatabaseException;
 import org.hbrs.se2.hausarbeit.carlookltd.process.control.exceptions.NoSuchUserOrPassword;
 
-@Route(value = "login", layout = MainView.class)
+@Route(value = "Login", layout = MainView.class)
 @PageTitle("Login")
 @CssImport("./styles/views/view.css")
 
@@ -27,7 +28,8 @@ public class LoginView extends VerticalLayout {
     final TextField userIDTextField = new TextField("Name");
     final PasswordField passwordField = new PasswordField("Passwort");
     final Button loginButton = new Button("Login");
-    add(welcomeLabel, userIDTextField, passwordField, loginButton);
+    final Button registerButton = new Button("Registrieren");
+    add(welcomeLabel, userIDTextField, passwordField, loginButton, registerButton);
     setAlignItems(FlexComponent.Alignment.CENTER);
 
     loginButton.addClickListener(e -> {
@@ -47,5 +49,8 @@ public class LoginView extends VerticalLayout {
         }
 
     });
+        registerButton.addClickListener(e -> {
+            UI.getCurrent().navigate(RegistrierenView.class);
+        });
     }
 }

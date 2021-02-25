@@ -8,7 +8,7 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import org.hbrs.se2.hausarbeit.carlookltd.process.control.LoginControl;
 
-@Route(value = "logout", layout = MainView.class)
+@Route(value = "Logout", layout = MainView.class)
 @PageTitle("Logout")
 @CssImport("./styles/views/view.css")
 public class LogoutView extends HorizontalLayout {

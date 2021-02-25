@@ -32,13 +32,15 @@ import org.hbrs.se2.hausarbeit.carlookltd.services.util.Roles;
 @PWA(name = "Car Look Ltd.", shortName = "Car Look Ltd.", enableInstallPrompt = false)
 @JsModule("./styles/shared-styles.js")
 public class MainView extends AppLayout {
-    User user = (User) VaadinSession.getCurrent().getAttribute(Roles.CURRENT_USER);
+    Tabs tabs = new Tabs();
+
     private final Tabs menu;
 
     public MainView() {
         HorizontalLayout header = createHeader();
         menu = createMenuTabs();
         addToNavbar(createTopBar(header, menu));
+
     }
 
     private VerticalLayout createTopBar(HorizontalLayout header, Tabs menu) {
@@ -69,16 +71,20 @@ public class MainView extends AppLayout {
         return header;
     }
 
-    private static Tabs createMenuTabs() {
+    public static Tabs createMenuTabs() {
         final Tabs tabs = new Tabs();
         tabs.getStyle().set("max-width", "100%");
+            getAvailableTabs();
         tabs.add(getAvailableTabs());
         return tabs;
     }
-
     private static Tab[] getAvailableTabs() {
-        return new Tab[]{createTab("Autos", EingestellteAutosView.class),
-                createTab("Auto eintragen", AutoEintragenView.class), createTab("Logout", LogoutView.class)};
+        return new Tab[]{
+                createTab("Auto Suche", AutoSucheView.class),
+                createTab("Reservierte Autos", ReservierungsView.class),
+                createTab("Auto hinzufügen", AutoEintragenView.class),
+                createTab("Eingestellte Autos", EingestellteAutosView.class),
+                createTab("Logout", LogoutView.class)};
     }
 
     private static Tab createTab(String text, Class<? extends Component> navigationTarget) {

@@ -20,7 +20,7 @@ public class ReservierungsDAO extends AbstractDAO {
         }
         return reservDAO;
     }
-
+    // Reservierung hinzufügen
     public void addReservierung(Reservierung reserv) {
         String sql = ("insert into carlook.reservierung values (default, ?, ?);");
         PreparedStatement statement = this.getPreparedStatement(sql);
@@ -32,9 +32,8 @@ public class ReservierungsDAO extends AbstractDAO {
             throwables.printStackTrace();
         }
     }
-
+    // Ausgabe aller reservierten Autos eines Users
     public List<Auto> getReservierteAutosByUserID(int id) {
-
         Statement statement = this.getStatement();
         ResultSet rs = null;
         try {
@@ -51,7 +50,6 @@ public class ReservierungsDAO extends AbstractDAO {
         if ( rs == null) return null;
         List<Auto> autoListe = new ArrayList<Auto>();
         Auto auto;
-      //  Reservierung reserv = null;
         try {
             while(rs.next()) {
                 auto = new Auto();
@@ -59,8 +57,7 @@ public class ReservierungsDAO extends AbstractDAO {
                 auto.setMarke(rs.getString(2));
                 auto.setBaujahr(rs.getInt(3));
                 auto.setBeschreibung(rs.getString(4));
-
-           //     auto.setVertrieblerId(rs.getInt(5));
+                auto.setVertrieblerId(rs.getInt(5));
                 autoListe.add(auto);
             }
         } catch (SQLException ex) {
@@ -68,6 +65,7 @@ public class ReservierungsDAO extends AbstractDAO {
         return autoListe;
 
     }
+    // Reservierung löschen
     public void deleteReservierungByID(Reservierung reserv) {
         Statement statement = this.getStatement();
         try {

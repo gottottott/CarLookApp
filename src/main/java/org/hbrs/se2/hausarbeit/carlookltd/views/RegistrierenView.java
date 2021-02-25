@@ -22,41 +22,54 @@ import org.hbrs.se2.hausarbeit.carlookltd.process.control.exceptions.NoSuchUserO
 @PageTitle("Registrieren")
 @CssImport("./styles/views/view.css")
 public class RegistrierenView extends VerticalLayout {
+    final TextField vNameField = new TextField("Vorname");
+    final TextField nNameField = new TextField("Nachname");
+    final TextField mailField = new TextField("E-Mail");
+    final PasswordField passwordField = new PasswordField("Passwort");
+    final Button registerButton = new Button("Registrieren");
+
     public RegistrierenView() {
         addClassName("registrieren-view");
-
         H3 welcomeLabel = new H3("Wir freuen uns das du dich bei Carlook Ltd. registrieren möchtest. ");
-        final TextField vNameField = new TextField("Vorname");
-        final TextField nNameField = new TextField("Nachname");
-        final TextField mailField = new TextField("E-Mail");
-        final PasswordField passwordField = new PasswordField("Passwort");
-        final Button registerButton = new Button("Registrieren");
-
         add(welcomeLabel, vNameField, nNameField, mailField, passwordField, registerButton);
         setAlignItems(FlexComponent.Alignment.CENTER);
 
         registerButton.addClickListener(e -> {
-            User user = new User(vNameField.getValue(),nNameField.getValue(),mailField.getValue(),passwordField.getValue());
-            LoginControl.getInstance().addUser(user);
-          //  try {
-                // DB eintrag
-            /*} catch (NoSuchUserOrPassword noSuchUserOrPassword) {
-                Notification.show("Login fehlerhaft. Das Passwort und/oder der Name ist nicht korrekt");
+            User user = new User(vNameField.getValue(), nNameField.getValue(), mailField.getValue(), passwordField.getValue());
+
+            try {
+                if (checkValues()) {
+                    LoginControl.getInstance().addUser(user);
+                    new Notification("Registrierung erfolgreich!", 5000).open();
+                }
+            } catch(NoSuchUserOrPassword ex){
+                Notification.show("Fehler");
                 vNameField.setValue("");
                 nNameField.setValue("");
                 mailField.setValue("");
                 passwordField.setValue("");
             }
-            catch (DatabaseException ex) {
-                Notification.show("DB-Fehler: " + ex.getReason());
-                vNameField.setValue("");
-                nNameField.setValue("");
-                mailField.setValue("");
-                passwordField.setValue("");
-            }
-*/
         });
     }
-
+    private boolean checkValues() {
+        boolean check = true;
+        if(vNameField.isEmpty()) {
+            new Notification("Bitte geben Sie einen Vornamen an!", 2000).open();
+            check = false;
+        }
+        if(nNameField.isEmpty()) {
+            new Notification("Bitte geben Sie einen Nachnamen an!",2000).open();
+            check = false;
+        }
+        if(mailField.isEmpty()) {
+            new Notification("Bitte geben Sie eine Email an!",2000).open();
+            check = false;
+        }
+        if(passwordField.isEmpty()) {
+            new Notification("Bitte geben Sie ein Passwort an!",2000).open();
+            check = false;
+        }
+        return check;
+    }
 }
 

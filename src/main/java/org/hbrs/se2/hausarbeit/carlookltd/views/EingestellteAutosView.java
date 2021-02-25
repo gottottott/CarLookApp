@@ -1,9 +1,13 @@
 package org.hbrs.se2.hausarbeit.carlookltd.views;
 
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.charts.model.Label;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.H3;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
@@ -19,7 +23,7 @@ import org.hbrs.se2.hausarbeit.carlookltd.process.control.ReservierungsControl;
 import org.hbrs.se2.hausarbeit.carlookltd.services.util.Roles;
 import com.vaadin.flow.router.RouteAlias;
 
-@Route(value = "AutoListe", layout = MainView.class)
+@Route(value = "EingestellteAutos", layout = MainView.class)
 @PageTitle("Eingestellte Autos")
 @CssImport("./styles/views/view.css")
 @RouteAlias(value = "", layout = MainView.class)
@@ -29,21 +33,19 @@ public class EingestellteAutosView extends VerticalLayout {
     Grid<Auto> grid = new Grid<>(Auto.class);
 
     public EingestellteAutosView() {
-        if(user == null) {
-            LoginControl.logOutUser();
-        }
-        else if(user.getIstVertriebler()){
-            setupVertriebler();
-        } else {
-            setupEndkunde();
+        if(LoginControl.checkIsVertriebler()) {
+            setup();
         }
     }
-    public void setupVertriebler() {
+    public void setup() {
         addClassName("eingestellte-autos-view");
+        H2 header = new H2("Deine eingestellten Autos: ");
+        Label label = new Label();
+
         grid.setItems(AutoSearchControl.getInstance().getAutosByVertriebler(user.getId()));
         configureGrid();
         Button deleteButton = new Button("Auto löschen");
-        add(grid, deleteButton);
+        add(header, grid, deleteButton);
 
         grid.addItemClickListener(
                 event -> {
@@ -51,20 +53,7 @@ public class EingestellteAutosView extends VerticalLayout {
                 });
         deleteButton.addClickListener(e -> {
             AutoSearchControl.getInstance().deleteCarByID(idSelected);
-        });
-    }
-    public void setupEndkunde() {
-        addClassName("auto-view");
-        grid.setItems(AutoSearchControl.getInstance().getAutos());
-        Button reservButton = new Button("Reservieren");
-        add(grid, reservButton);
-        configureGrid();
-        grid.addItemClickListener(
-                event -> {
-                    idSelected = event.getItem().getId();
-                });
-        reservButton.addClickListener(e -> {
-            ReservierungsControl.getInstance().addReservierung(idSelected);
+            new Notification("Auto erfolgreich gelöscht!", 5000).open();
         });
     }
     public void configureGrid() {
